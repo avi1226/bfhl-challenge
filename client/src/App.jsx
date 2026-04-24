@@ -15,8 +15,8 @@ const EXAMPLES = [
   { id: 4, label: 'Diamond Case', data: 'A->B, A->C, B->D, C->D' },
 ];
 
-const RecursiveNode = ({ node, children }) => {
-  const keys = Object.keys(children);
+const RecursiveNode = ({ node, children = {} }) => {
+  const keys = Object.keys(children || {});
   return (
     <div className="node">
       <div className="node-content">
@@ -108,7 +108,7 @@ function App() {
             <section className="panel">
               <h2><TreePine size={24} color="var(--primary)" /> Hierarchy Explorer</h2>
               <div className="hierarchy-stack">
-                {response.hierarchies.map((h, i) => (
+                {response?.hierarchies?.map((h, i) => (
                   <div 
                     key={i} 
                     className={`hierarchy-item ${selectedIndex === i ? 'selected' : ''}`}
@@ -151,21 +151,21 @@ function App() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
               <section className="panel">
                 <h2><Database size={24} color="var(--accent-success)" /> Analytics</h2>
-                <div className="stat-box"><span>Non-Cyclic Trees</span><span className="stat-val">{response.summary.total_trees}</span></div>
-                <div className="stat-box"><span>Cyclic Clusters</span><span className="stat-val">{response.summary.total_cycles}</span></div>
-                <div className="stat-box"><span>Largest Root</span><span className="stat-val">{response.summary.largest_tree_root || 'N/A'}</span></div>
+                <div className="stat-box"><span>Non-Cyclic Trees</span><span className="stat-val">{response?.summary?.total_trees ?? 0}</span></div>
+                <div className="stat-box"><span>Cyclic Clusters</span><span className="stat-val">{response?.summary?.total_cycles ?? 0}</span></div>
+                <div className="stat-box"><span>Largest Root</span><span className="stat-val">{response?.summary?.largest_tree_root || 'N/A'}</span></div>
                 
                 <div style={{ marginTop: '1.5rem' }}>
                   <div className="log-box">
                     <div className="log-label"><Terminal size={12} /> Invalid Entries</div>
                     <div className="log-data" style={{ color: 'var(--accent-error)' }}>
-                      {response.invalid_entries.length > 0 ? response.invalid_entries.join(', ') : 'None'}
+                      {response?.invalid_entries?.length > 0 ? response.invalid_entries.join(', ') : 'None'}
                     </div>
                   </div>
                   <div className="log-box">
                     <div className="log-label"><Share2 size={12} /> Duplicates Filtered</div>
                     <div className="log-data" style={{ color: 'var(--accent-warning)' }}>
-                      {response.duplicate_edges.length > 0 ? response.duplicate_edges.join(', ') : 'None'}
+                      {response?.duplicate_edges?.length > 0 ? response.duplicate_edges.join(', ') : 'None'}
                     </div>
                   </div>
                 </div>

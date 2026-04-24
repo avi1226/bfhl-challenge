@@ -4,6 +4,14 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 app.use(express.json());
+ 
+app.get('/', (req, res) => {
+    res.send('BFHL Server is running. Use POST /bfhl for processing.');
+});
+ 
+app.get('/bfhl', (req, res) => {
+    res.status(200).json({ operation_code: 1 });
+});
 
 // Replace these with your actual credentials
 const USER_ID = "avinash_24042026";
